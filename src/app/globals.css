@@ -1,26 +1,532 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  --card-bg: rgba(18, 18, 23, 0.7);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --accent-blue: #38bdf8;
+  --accent-purple: #a855f7;
+  --accent-cyan: #06b6d4;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  min-width: 1280px;
+  overflow-x: auto;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  selection-background-color: rgba(56, 189, 248, 0.3);
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: rgba(18, 18, 23, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(24, 24, 27, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(56, 189, 248, 0.15);
+}
+
+/* Ambient Background Mesh */
+.bg-mesh {
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(56, 189, 248, 0.08) 0px, transparent 40%),
+    radial-gradient(at 90% 10%, rgba(168, 85, 247, 0.08) 0px, transparent 40%),
+    radial-gradient(at 50% 80%, rgba(14, 165, 233, 0.06) 0px, transparent 50%);
+}
+
+.grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* ==========================================================================
+   Markdown Document & Derivations Typography (Clean, Airy & Vibrant)
+   ========================================================================== */
+.markdown-body {
+  color: #d4d4d8;
+  line-height: 1.85;
+  font-size: 1.0625rem;
+}
+
+.markdown-body h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #fafafa;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.markdown-body h2 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f4f4f5;
+  margin-top: 2.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Derivation Titles (Distinct, Vibrant Card Accent) */
+.markdown-body h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  margin-top: 2.5rem !important;
+  margin-bottom: 1.25rem !important;
+  padding: 0.85rem 1.25rem !important;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.12) 0%, rgba(168, 85, 247, 0.05) 55%, transparent 100%);
+  border-left: 4px solid #38bdf8;
+  border-radius: 0.65rem;
+  border-top: none !important;
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.5);
+}
+
+.markdown-body h4 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #e4e4e7;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Paragraphs & Text Spacing in Derivations */
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 1.25rem !important;
+  line-height: 1.85;
+}
+
+/* Derivation Step Headers (e.g. 1. Aim, 2. Assumptions, 3. Mathematical Steps, 4. Final Result) */
+.markdown-body p:has(> strong:first-child) {
+  margin-top: 1.75rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Step Header Glowing Badges */
+.markdown-body p:has(> strong:first-child) > strong:first-child {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-right: 0.5rem;
+  box-shadow: 0 0 14px -3px rgba(56, 189, 248, 0.25);
+  transition: all 0.2s ease;
+}
+
+.markdown-body p:has(> strong:first-child):hover > strong:first-child {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(56, 189, 248, 0.16);
+  transform: translateY(-1px);
+}
+
+/* Lists - Balanced vertical breathing room */
+.markdown-body ul, 
+.markdown-body ol {
+  margin-top: 0.75rem !important;
+  margin-bottom: 1.5rem !important;
+  padding-left: 1.75rem;
+}
+
+.markdown-body ul {
+  list-style-type: disc;
+}
+
+.markdown-body ol {
+  list-style-type: decimal;
+}
+
+.markdown-body li {
+  margin-bottom: 0.5rem !important;
+  line-height: 1.75 !important;
+}
+
+.markdown-body li:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.markdown-body em {
+  color: #a1a1aa;
+}
+
+/* Horizontal Dividers */
+.markdown-body hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.25), rgba(168, 85, 247, 0.25), transparent);
+  margin: 2.5rem 0 !important;
+}
+
+/* ==========================================================================
+   KaTeX Math Rendering & Space Gaps (Scaled According to Step Size)
+   ========================================================================== */
+
+/* Universal KaTeX rule: formulas must NEVER break midway into the next line */
+.katex {
+  font-size: 1.15em;
+  color: #f4f4f5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  white-space: nowrap !important;
+}
+
+.katex,
+.katex-html,
+.katex .base,
+.katex .mrel,
+.katex .mbin,
+.katex .mord,
+.katex .mopen,
+.katex .mclose,
+.katex .minner {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}
+
+/* Ensure math symbols have clean breathing room and never appear squished */
+.katex .mrel {
+  margin-left: 0.32em !important;
+  margin-right: 0.32em !important;
+}
+
+.katex .mbin {
+  margin-left: 0.28em !important;
+  margin-right: 0.28em !important;
+}
+
+.katex-display .mrel {
+  margin-left: 0.4em !important;
+  margin-right: 0.4em !important;
+}
+
+.katex-display .mbin {
+  margin-left: 0.35em !important;
+  margin-right: 0.35em !important;
+}
+
+/* Base Display Math Block ($$...$$) - Generous vertical space gaps */
+.katex-display {
+  display: block !important;
+  margin: 2.5rem 0 !important;
+  padding: 1rem 1.25rem !important;
+  background: rgba(18, 18, 23, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 0.85rem !important;
+  box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.5) !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.katex-display:hover {
+  background: rgba(24, 24, 30, 0.65) !important;
+  border-color: rgba(56, 189, 248, 0.2) !important;
+  box-shadow: 0 8px 24px -10px rgba(56, 189, 248, 0.15) !important;
+}
+
+.katex-display > .katex {
+  display: inline-block;
+  font-size: 1.28em !important;
+  line-height: 1.6;
+  text-align: center;
+  white-space: nowrap !important;
+}
+
+/* Click-to-Copy Formula Button */
+.copy-formula-btn {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.65rem;
+  font-family: monospace;
+  font-weight: 600;
+  color: #a1a1aa;
+  background: rgba(24, 24, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.375rem;
+  opacity: 0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.katex-display:hover .copy-formula-btn {
+  opacity: 1;
+}
+
+.copy-formula-btn:hover {
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(18, 18, 23, 0.95);
+}
+
+/* PROPORTIONAL SPACE GAPS ACCORDING TO MATHEMATICAL STEP SIZE:
+   Tall mathematical operations (integrals \int, sums \sum, limits, large fractions,
+   brackets \left[...\right], roots \sqrt, matrices) get expanded vertical breathing room */
+.katex-display:has(.large-op),
+.katex-display:has(.op-symbol),
+.katex-display:has(.mfrac),
+.katex-display:has(.delimsizing),
+.katex-display:has(.sqrt),
+.katex-display:has(.mtable) {
+  margin: 3.25rem 0 !important;
+  padding: 1.25rem 1.5rem !important;
+}
+
+/* Multi-line systems, matrices, and stacked fractions receive maximum clearance */
+.katex-display:has(.mtable),
+.katex-display:has(.mfrac .mfrac) {
+  margin: 3.75rem 0 !important;
+  padding: 1.5rem 1.75rem !important;
+}
+
+/* Consecutive equations have full, un-squished gaps between each calculation step */
+.katex-display + .katex-display {
+  margin-top: 2rem !important;
+  margin-bottom: 2.75rem !important;
+}
+
+.katex-display:has(.large-op) + .katex-display,
+.katex-display + .katex-display:has(.large-op) {
+  margin-top: 2.5rem !important;
+  margin-bottom: 3.25rem !important;
+}
+
+/* Space gap when display math follows a step title */
+.markdown-body p:has(> strong:first-child) + .katex-display {
+  margin-top: 1.5rem !important;
+}
+
+/* ==========================================================================
+   Self-Test / Practice Mode (Frosted Glass Blur on Math Steps)
+   ========================================================================== */
+.markdown-body.practice-mode-active .katex-display,
+.markdown-body.practice-mode-active p:has(> strong:first-child) + p,
+.markdown-body.practice-mode-active ol,
+.markdown-body.practice-mode-active ul {
+  filter: blur(8px);
+  opacity: 0.4;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.markdown-body.practice-mode-active .katex-display:hover,
+.markdown-body.practice-mode-active p:has(> strong:first-child) + p:hover,
+.markdown-body.practice-mode-active ol:hover,
+.markdown-body.practice-mode-active ul:hover {
+  filter: blur(0);
+  opacity: 1;
+  user-select: auto;
+  border-color: rgba(52, 211, 153, 0.4) !important;
+  box-shadow: 0 0 25px -5px rgba(52, 211, 153, 0.25) !important;
+}
+
+/* Final Result highlight formula */
+.katex-display .mathbf {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Tables - Never squeeze or break formulas midway
+   ========================================================================== */
+.markdown-body table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2.75rem 0;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(18, 18, 23, 0.65);
+  backdrop-filter: blur(12px);
+  display: table;
+}
+
+@media (max-width: 1024px) {
+  .markdown-body table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.markdown-body th {
+  background-color: rgba(30, 30, 36, 0.85);
+  color: #f4f4f5;
+  font-weight: 600;
+  padding: 1.1rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.markdown-body td {
+  padding: 1.15rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #d4d4d8;
+  font-size: 0.975rem;
+  vertical-align: middle;
+}
+
+/* First Column: Formula Number */
+.markdown-body td:nth-child(1),
+.markdown-body th:nth-child(1) {
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-weight: 600;
+  color: #38bdf8;
+  width: 1%;
+}
+
+/* Second Column: Formula - MUST NEVER WRAP MIDWAY */
+.markdown-body td:nth-child(2),
+.markdown-body th:nth-child(2) {
+  white-space: nowrap !important;
+  min-width: 200px;
+}
+
+.markdown-body td:nth-child(2) .katex {
+  font-size: 1.12em;
+  color: #ffffff;
+  white-space: nowrap !important;
+}
+
+.markdown-body tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-body tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* ==========================================================================
+   Callouts & Code Blocks
+   ========================================================================== */
+.markdown-body blockquote {
+  margin: 2rem 0;
+  padding: 1.15rem 1.5rem;
+  border-left: 3px solid #38bdf8;
+  background: rgba(56, 189, 248, 0.05);
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #e0f2fe;
+}
+
+.markdown-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body code:not(pre code) {
+  background: rgba(39, 39, 42, 0.8);
+  color: #38bdf8;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.35rem;
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.markdown-body pre {
+  background: #111115;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+/* ---- Client-side KaTeX math rendering ---- */
+
+/* Hide the raw LaTeX code elements so they don't flash as styled <code> blocks.
+   They get replaced by KatexRenderer with proper KaTeX output. */
+.markdown-body code.language-math {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+}
+
+/* Display math wrapper — centred block with vertical breathing room */
+.katex-display-wrapper {
+  display: block;
+  text-align: center;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Inline math wrapper */
+.katex-inline-wrapper {
+  display: inline;
+}
+
+/* KaTeX rendered elements color */
+.markdown-body .katex {
+  color: #e4e4e7;
+}
+
